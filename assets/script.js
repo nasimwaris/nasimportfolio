@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
+    // Menu toggle
     $('#menu').click(function () {
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
     });
 
+    // Scroll behavior and scrollspy
     $(window).on('scroll load', function () {
         $('#menu').removeClass('fa-times');
         $('.navbar').removeClass('nav-toggle');
@@ -15,7 +17,7 @@ $(document).ready(function () {
             document.querySelector('#scroll-top').classList.remove('active');
         }
 
-        // scroll spy
+        // Scrollspy
         $('section').each(function () {
             let height = $(this).height();
             let offset = $(this).offset().top - 200;
@@ -29,7 +31,7 @@ $(document).ready(function () {
         });
     });
 
-    // smooth scrolling
+    // Smooth scrolling
     $('a[href*="#"]').on('click', function (e) {
         e.preventDefault();
         $('html, body').animate({
@@ -37,38 +39,52 @@ $(document).ready(function () {
         }, 500, 'linear')
     });
 
-    // <!-- emailjs to mail contact form data -->
+
+    //popup
+    function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast show';
+  setTimeout(() => {
+    toast.className = 'toast'; // hide after 3 seconds
+  }, 3000);
+}
+
+    // ✅ Initialize EmailJS (Replace with your actual public key)
+    emailjs.init("CvdEVK0gzMa-MQ4Q6"); // Replace with real public key from EmailJS
+
+    // ✅ Send form data to EmailJS
     $("#contact-form").submit(function (event) {
-        emailjs.init("user_TTDmetQLYgWCLzHTDgqxm");
-
-        emailjs.sendForm('contact_service', 'template_contact', '#contact-form')
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-                document.getElementById("contact-form").reset();
-                alert("Form Submitted Successfully");
-            }, function (error) {
-                console.log('FAILED...', error);
-                alert("Form Submitted Successfully");
-            });
         event.preventDefault();
-    });
-    // <!-- emailjs to mail contact form data -->
 
+        emailjs.sendForm('service_z0x5amn', 'template_z8qcz1s', this)
+            .then(function (response) {
+                console.log('Email sent!', response.status, response.text);
+                showToast("✅ Message sent successfully!");
+               $('#contact-form')[0].reset();
+
+            }, function (error) {
+                console.error('Email failed...', error);
+                showToast("❌ Failed to send message. Please try again.", 'error');
+
+            });
+    });
+
+}); // End of document.ready
+
+
+// 🔄 Page title change on tab switch
+document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === "visible") {
+        document.title = "Portfolio | Nasim Waris";
+        $("#favicon").attr("href", "assets/images/NASIM image.png");
+    } else {
+        document.title = "Come Back To Portfolio";
+        $("#favicon").attr("href", "assets/images/NASIM image.png");
+    }
 });
 
-document.addEventListener('visibilitychange',
-    function () {
-        if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Nasim Waris";
-            $("#favicon").attr("href", "assets/images/NASIM image.png");
-        }
-        else {
-            document.title = "Come Back To Portfolio";
-            $("#favicon").attr("href", "assets/images/NASIM image.png");
-        }
-    });
-
-    // <!-- typed js effect starts -->
+// ✍️ Typed.js typing effect
 var typed = new Typed(".typing-text", {
     strings: ["Software Engineer", "Full-Stack developer", "Java developer"],
     loop: true,
@@ -76,39 +92,24 @@ var typed = new Typed(".typing-text", {
     backSpeed: 25,
     backDelay: 500,
 });
-// <!-- typed js effect ends -->
 
-
-
-// <!-- tilt js effect starts -->
+// 🌀 Tilt.js 3D effect
 VanillaTilt.init(document.querySelectorAll(".tilt"), {
     max: 15,
 });
-// <!-- tilt js effect ends -->
 
-
-// disable developer mode
+// 🔒 Disable Developer Tools (basic protection)
 document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
+    if (
+        e.keyCode == 123 || // F12
+        (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(String.fromCharCode(e.keyCode))) ||
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))
+    ) {
         return false;
     }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-}
+};
 
-
-
-/* ===== SCROLL REVEAL ANIMATION ===== */
+// 👀 ScrollReveal animations
 const srtop = ScrollReveal({
     origin: 'top',
     distance: '80px',
@@ -116,11 +117,10 @@ const srtop = ScrollReveal({
     reset: true
 });
 
-/* SCROLL HOME */
+// Reveal sections
 srtop.reveal('.home .content h3', { delay: 200 });
 srtop.reveal('.home .content p', { delay: 200 });
 srtop.reveal('.home .content .btn', { delay: 200 });
-
 srtop.reveal('.home .image', { delay: 400 });
 srtop.reveal('.home .linkedin', { interval: 600 });
 srtop.reveal('.home .github', { interval: 800 });
@@ -129,28 +129,21 @@ srtop.reveal('.home .telegram', { interval: 600 });
 srtop.reveal('.home .instagram', { interval: 600 });
 srtop.reveal('.home .dev', { interval: 600 });
 
-/* SCROLL ABOUT */
 srtop.reveal('.about .content h3', { delay: 200 });
 srtop.reveal('.about .content .tag', { delay: 200 });
 srtop.reveal('.about .content p', { delay: 200 });
 srtop.reveal('.about .content .box-container', { delay: 200 });
 srtop.reveal('.about .content .resumebtn', { delay: 200 });
 
-
-/* SCROLL SKILLS */
 srtop.reveal('.skills .container', { interval: 200 });
 srtop.reveal('.skills .container .bar', { delay: 400 });
 
-/* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });
 
-/* SCROLL PROJECTS */
 srtop.reveal('.project .box', { interval: 200 });
 
-/* SCROLL EXPERIENCE */
 srtop.reveal('.experience .timeline', { delay: 400 });
 srtop.reveal('.experience .timeline .container', { interval: 400 });
 
-/* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
