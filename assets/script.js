@@ -6,6 +6,30 @@ $(document).ready(function () {
         $('.navbar').toggleClass('nav-toggle');
     });
 
+    // Theme toggle
+    $('#theme-toggle').click(function () {
+        $(this).toggleClass('fa-sun');
+        $(this).toggleClass('fa-moon');
+        if ($(this).hasClass('fa-sun')) {
+            $('body').addClass('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            $('.pofile2').attr('src', 'assets/images/nasim image dark.jpg');
+        } else {
+            $('body').removeClass('dark-mode');
+            localStorage.setItem('theme', 'light');
+            $('.pofile2').attr('src', 'assets/images/nasim image white.jpg');
+        }
+    });
+
+    // Load theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+        $('body').addClass('dark-mode');
+        $('#theme-toggle').removeClass('fa-moon').addClass('fa-sun');
+        $('.pofile2').attr('src', 'assets/images/nasim image dark.jpg');
+    } else {
+        $('.pofile2').attr('src', 'assets/images/nasim image white.jpg');
+    }
+
     // Scroll behavior and scrollspy
     $(window).on('scroll load', function () {
         $('#menu').removeClass('fa-times');
@@ -35,20 +59,20 @@ $(document).ready(function () {
     $('a[href*="#"]').on('click', function (e) {
         e.preventDefault();
         $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top,
+            scrollTop: $($(this).attr('href')).offset().top - 65,
         }, 500, 'linear')
     });
 
 
     //popup
     function showToast(message) {
-  const toast = document.getElementById('toast');
-  toast.textContent = message;
-  toast.className = 'toast show';
-  setTimeout(() => {
-    toast.className = 'toast'; // hide after 3 seconds
-  }, 3000);
-}
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast show';
+        setTimeout(() => {
+            toast.className = 'toast'; // hide after 3 seconds
+        }, 3000);
+    }
 
     // ✅ Initialize EmailJS (Replace with your actual public key)
     emailjs.init("CvdEVK0gzMa-MQ4Q6"); // Replace with real public key from EmailJS
@@ -61,7 +85,7 @@ $(document).ready(function () {
             .then(function (response) {
                 console.log('Email sent!', response.status, response.text);
                 showToast("✅ Message sent successfully!");
-               $('#contact-form')[0].reset();
+                $('#contact-form')[0].reset();
 
             }, function (error) {
                 console.error('Email failed...', error);
@@ -77,16 +101,16 @@ $(document).ready(function () {
 document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === "visible") {
         document.title = "Portfolio | Nasim Waris";
-        $("#favicon").attr("href", "assets/images/NASIM image.png");
+        $("#favicon").attr("href", "assets/images/nasim image white.jpg");
     } else {
         document.title = "Come Back To Portfolio";
-        $("#favicon").attr("href", "assets/images/NASIM image.png");
+        $("#favicon").attr("href", "assets/images/nasim image white.jpg");
     }
 });
 
 // ✍️ Typed.js typing effect
 var typed = new Typed(".typing-text", {
-    strings: ["Software Engineer", "Full-Stack developer", "Java developer"],
+    strings: ["Software Developer", "Software Engineer", "Full-Stack developer"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
