@@ -265,6 +265,14 @@ header .navbar ul li a:hover {
   align-items: center;
 }
 
+@media (max-width: 768px) {
+  .home {
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+  }
+}
+
 .home #particles-js {
   position: absolute;
   top: 0;
@@ -286,6 +294,15 @@ header .navbar ul li a:hover {
   flex: 1 1 40rem;
   padding-top: 1rem;
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .home .content {
+    flex: 1 1 auto;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
 }
 
 .home .image {
@@ -311,10 +328,22 @@ header .navbar ul li a:hover {
   color: var(--heading-color);
 }
 
+@media (max-width: 768px) {
+  .home .content h2 {
+    font-size: 4rem;
+  }
+}
+
 .home .content h2 span {
   font-size: 5rem;
   font-weight: 800;
   color: #ff7b00;
+}
+
+@media (max-width: 768px) {
+  .home .content h2 span {
+    font-size: 4rem;
+  }
 }
 
 .home .content p {
@@ -333,8 +362,8 @@ header .navbar ul li a:hover {
 
 .home .btn {
   margin-top: 1rem;
-  position: absolute;
-  line-height: 0;
+  display: inline-block;
+  line-height: 1;
   padding: 1.6rem 3rem;
   border-radius: 4em;
   transition: 0.5s;
@@ -381,6 +410,28 @@ header .navbar ul li a:hover {
   transition: bottom 1s, left 1s;
 }
 
+@media (max-width: 768px) {
+  .images {
+    position: relative;
+    width: 100%;
+    height: auto;
+    right: auto;
+    bottom: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .images img {
+    position: relative;
+    height: auto;
+    width: 90%;
+    left: auto;
+    transform: none;
+    max-width: 450px;
+  }
+}
+
 .images:hover .shape {
   bottom: 30px;
 }
@@ -399,6 +450,15 @@ header .navbar ul li a:hover {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+}
+
+@media (max-width: 768px) {
+  .socials .social-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
 
 .socials .social-icons li {
@@ -453,24 +513,32 @@ header .navbar ul li a:hover {
 
 /* hero media queries starts*/
 @media (max-width: 450px) {
+  .home .content h2 {
+    font-size: 3.5rem;
+  }
+
+  .home .content h2 span {
+    font-size: 3.5rem;
+  }
+
   .home .btn {
-    margin: 4rem 0;
+    margin: 2rem 0;
   }
 
   .socials {
-    margin-top: 12rem;
+    margin-top: 8rem;
   }
 
   .home .image img {
-    margin-top: -12rem;
+    margin-top: 0;
   }
 
   .home .content p {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .home .content p span {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 
@@ -643,8 +711,7 @@ header .navbar ul li a:hover {
 
 .skills .container .row {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1.8rem;
 }
 
@@ -700,7 +767,7 @@ body.dark-mode .skills .container .bar:hover {
   }
 
   .skills .container .row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     margin: 1rem;
     padding: 2rem 0.2rem 2rem 0.2rem;
     gap: 1rem;
